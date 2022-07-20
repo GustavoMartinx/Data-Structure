@@ -1,54 +1,54 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "fila.h"
+#include "queue.h"
 
-#define ERRO "***ERRO***"
+#define ERROR "***ERROR***"
 
-int main(){
+int main() {
 
     
     char str[200];
-    TipoElemento elemento;
+    ElementType element;
 
 
     /**************************************
-    * Teste insercao e primeiro
+    * Testing insertion and first
     **************************************/
-    Fila* f1 = fila_criar();
-    fila_inserir(f1, 10);
-    fila_inserir(f1, 20);
-    fila_inserir(f1, 30);
-    fila_toString(f1, str);
-    printf("----- Teste Insercao -----\n");
-    printf("%s\n", strcmp(str, "[10,20,30]")==0 ? "[OK]" : ERRO);
+    Queue* q1 = queue_create();
+    queue_insert(q1, 10);
+    queue_insert(q1, 20);
+    queue_insert(q1, 30);
+    queue_toString(q1, str);
+    printf("----- Testing Insertion -----\n");
+    printf("%s\n", strcmp(str, "[10,20,30]")==0 ? "[OK]" : ERROR);
     
 
-    printf("----- Teste Primeiro -----\n");
-    fila_primeiro(f1, &elemento);
-    printf("%s\n", elemento == 10 ? "[OK]" : ERRO);    
+    printf("----- Testing First -----\n");
+    queue_first(q1, &element);
+    printf("%s\n", element == 10 ? "[OK]" : ERROR);    
 
     /**************************************
-    * Teste remocao
+    * Testing remove
     **************************************/
-    printf("----- Teste Remocao -----\n");
-    fila_remover(f1, &elemento);
-    printf("%s\n", elemento == 10 ? "[OK]" : ERRO); 
+    printf("----- Testing Remove -----\n");
+    queue_remove(q1, &element);
+    printf("%s\n", element == 10 ? "[OK]" : ERROR); 
     
-    fila_remover(f1, &elemento);
-    printf("%s\n", elemento == 20 ? "[OK]" : ERRO);
+    queue_remove(q1, &element);
+    printf("%s\n", element == 20 ? "[OK]" : ERROR);
     
-    fila_remover(f1, &elemento);
-    printf("%s\n", elemento == 30 ? "[OK]" : ERRO);
+    queue_remove(q1, &element);
+    printf("%s\n", element == 30 ? "[OK]" : ERROR);
     
-    bool resultado = fila_remover(f1, &elemento);
-    printf("%s\n", resultado == false ? "[OK]" : ERRO);
+    bool result = queue_remove(q1, &element);
+    printf("%s\n", result == false ? "[OK]" : ERROR);
 
-    printf("----- Teste toString fila vazia -----\n");
-    fila_toString(f1, str);
-    printf("%s\n", strcmp(str, "[]")==0 ? "[OK]" : ERRO);
+    printf("----- Testing toString Empty Queue -----\n");
+    queue_toString(q1, str);
+    printf("%s\n", strcmp(str, "[]")==0 ? "[OK]" : ERROR);
     
 
-    // fila_destruir(&f1);
+    // queue_destroy(&q1);
 
 }
