@@ -1,21 +1,13 @@
-contigua:
-	
+queue:
+	# Compiling the queue implemantation
 	# Compilando a implementacao da fila
-	gcc -c fila_contigua.c
+	gcc -c queue.c
 	
+	# Compiling and generating the executable
 	# Compilando e gerando o executavel
-	gcc main.c fila_contigua.o -o main
-
-	# Executando
-	./main_filaContigua
-
-encadeada:
-	# Compilando a implementacao da fila
-	gcc -c fila_encadeada.c
+	gcc main.c queue.o -o main
 	
-	# Compilando e gerando o executavel
-	gcc main.c fila_encadeada.o -o main
-	
+	# Executing
 	# Executando
 	./main
 
