@@ -2,184 +2,200 @@
 #include<stdlib.h>
 #include<string.h>
 #include<stdbool.h>
-#include "lista.h"
+#include "list.h"
 
-void teste_string(char* resultado, char* esperado){
-    bool teste = strcmp(esperado, resultado) == 0;
-    printf("[%s] %s \n", (teste ? "PASS" : "ERROR"), resultado);
+void test_string(char* result, char* waiting){
+    bool test = strcmp(waiting, result) == 0;
+    printf("[%s] %s \n", (test ? "PASS" : "ERROR"), result);
 }
 
-void teste_int(int resultado, int esperado){        
-    printf("[%s] %d \n", (resultado==esperado ? "PASS" : "ERROR"), resultado);
+void test_int(int result, int waiting){        
+    printf("[%s] %d \n", (result==waiting ? "PASS" : "ERROR"), result);
 }
 
-void teste_bool(bool resultado, bool esperado){ 
-    printf("[%s] %s \n", (resultado==esperado ? "PASS" : "ERROR"), resultado ? "true" : "false");
+void test_bool(bool result, bool waiting){ 
+    printf("[%s] %s \n", (result==waiting ? "PASS" : "ERROR"), result ? "true" : "false");
 }
 
-void teste_anexar(){
+void test_attach(){
     printf("\n------------------------------------------------\n");
-    printf(">>> TESTE ANEXAR \n");
+    printf(">>> TESTING ATTACH \n");
     printf("------------------------------------------------\n");
 
-    Lista* l = lista_criar();
-    lista_anexar(l, 10);
-    lista_anexar(l, 20);
-    lista_anexar(l, 30);
+    List* l = list_create();
+    list_attach(l, 10);
+    list_attach(l, 20);
+    list_attach(l, 30);
 
     char str[300];    
-    lista_toString(l, str);
-    teste_string(str, "[10,20,30]");  
+    list_toString(l, str);
+    test_string(str, "[10,20,30]");  
 }
 
-void teste_inserir(){
+void test_insert(){
     printf("\n------------------------------------------------\n");
-    printf(">>> TESTE INSERIR \n");
+    printf(">>> TESTING INSERT \n");
     printf("------------------------------------------------\n");
     char str[300];
-    bool resultado = false;
+    bool result = false;
     
-    Lista* l = lista_criar();
+    List* l = list_create();
 
-    // inserção na lista vazia
-    lista_inserir(l, 10, 0);
+    // insertion into empty list
+    // inserção na list vazia
+    list_insert(l, 10, 0);
 
-    lista_toString(l, str);
-    teste_string(str, "[10]");
+    list_toString(l, str);
+    test_string(str, "[10]");
     
+    // insertion into first position
     // inserção na primeira posição
-    lista_inserir(l, 5, 0);
-    lista_inserir(l, 3, 0);
-    lista_toString(l, str);
-    teste_string(str, "[3,5,10]");
+    list_insert(l, 5, 0);
+    list_insert(l, 3, 0);
+    list_toString(l, str);
+    test_string(str, "[3,5,10]");
 
+    // insertion in the last position
     // inserção na última posição
-    lista_inserir(l, 40, 3);
-    lista_inserir(l, 50, 4);
-    lista_toString(l, str);
-    teste_string(str, "[3,5,10,40,50]");
+    list_insert(l, 40, 3);
+    list_insert(l, 50, 4);
+    list_toString(l, str);
+    test_string(str, "[3,5,10,40,50]");
     
+    // insertion in the middle
     // inserção no meio
-    lista_inserir(l, 15, 3);
-    lista_toString(l, str);
-    teste_string(str, "[3,5,10,15,40,50]");
+    list_insert(l, 15, 3);
+    list_toString(l, str);
+    test_string(str, "[3,5,10,15,40,50]");
 }
 
-void teste_removerPosicao(){
+void test_removePosition() {
     printf("\n------------------------------------------------\n");
-    printf(">>> TESTE REMOVER POR POSICAO\n");
+    printf(">>> TESTING REMOVE BY POSITION\n");
     printf("------------------------------------------------\n");
     
-    Lista* l = lista_criar();
-    lista_anexar(l, 10);
-    lista_anexar(l, 20);
-    lista_anexar(l, 30);
-    lista_anexar(l, 40);
-    lista_anexar(l, 50);
+    List* l = list_create();
+    list_attach(l, 10);
+    list_attach(l, 20);
+    list_attach(l, 30);
+    list_attach(l, 40);
+    list_attach(l, 50);
 
-    TipoElemento item;
+    ElementType item;
     char str[300];
   
+    // Removing the first position
     // Remoção da primeira posição
-    lista_removerPosicao(l, 0, &item);
-    lista_toString(l, str);
-    teste_int(item, 10); // [PASS] 10
-    teste_string(str, "[20,30,40,50]");
+    list_removePosition(l, 0, &item);
+    list_toString(l, str);
+    test_int(item, 10); // [PASS] 10
+    test_string(str, "[20,30,40,50]");
  
+    // Removing the last position
     // Remoção da última posição
-    lista_removerPosicao(l, 3, &item);
-    lista_toString(l, str);
-    teste_int(item, 50);
-    teste_string(str, "[20,30,40]");
+    list_removePosition(l, 3, &item);
+    list_toString(l, str);
+    test_int(item, 50);
+    test_string(str, "[20,30,40]");
  
+    // Removing the middle
     // Remoção do meio
-    lista_removerPosicao(l, 1, &item);
-    lista_toString(l, str);
-    teste_int(item, 30);
-    teste_string(str, "[20,40]");
+    list_removePosition(l, 1, &item);
+    list_toString(l, str);
+    test_int(item, 30);
+    test_string(str, "[20,40]");
 
+    // Removing of last position with negative index
     // Remoção da última posição com índice negativo
-    lista_removerPosicao(l, -1, &item);    
-    lista_toString(l, str);
-    teste_int(item, 40);
-    teste_string(str, "[20]");
+    list_removePosition(l, -1, &item);    
+    list_toString(l, str);
+    test_int(item, 40);
+    test_string(str, "[20]");
 
+    // Removing the last element 
     // Remoção do último elemento
-    lista_removerPosicao(l, -1, &item);
-    lista_toString(l, str);
-    teste_int(item, 20);
-    teste_string(str, "[]");
+    list_removePosition(l, -1, &item);
+    list_toString(l, str);
+    test_int(item, 20);
+    test_string(str, "[]");
 
-    // Remoção na lista vazia
-    bool teste = lista_removerPosicao(l, 0, &item);
-    teste_bool(teste, false);
+    // Removing in a empty list
+    // Remoção na list vazia
+    bool test = list_removePosition(l, 0, &item);
+    test_bool(test, false);
 }
 
-void teste_removerElemento(){
+void test_removeElement() {
     printf("\n------------------------------------------------\n");
-    printf(">>> TESTE REMOVER POR ELEMENTO\n");
+    printf(">>> TESTING REMOVE POR ELEMENT\n");
     printf("------------------------------------------------\n");
     
-    Lista* l = lista_criar();
-    lista_anexar(l, 10);
-    lista_anexar(l, 20);
-    lista_anexar(l, 30);
-    lista_anexar(l, 40);
-    lista_anexar(l, 50);
+    List* l = list_create();
+    list_attach(l, 10);
+    list_attach(l, 20);
+    list_attach(l, 30);
+    list_attach(l, 40);
+    list_attach(l, 50);
 
-    int posicao;
+    int position;
     char str[300];
 
 
+    // Removing an element that not exists
+    // Remoção de um elemento que não existe
+    position = list_removeElement(l, 100);
+    test_int(position, -1);
     
-    // Remoção de um elemento que não existe    
-    posicao = lista_removerElemento(l, 100);
-    teste_int(posicao, -1);
-    
+    // Removing the first position element
     // Remoção do elemento da primeira posição
-    posicao = lista_removerElemento(l, 10);    
-    lista_toString(l, str);
-    teste_int(posicao, 0);
-    teste_string(str, "[20,30,40,50]");
+    position = list_removeElement(l, 10);    
+    list_toString(l, str);
+    test_int(position, 0);
+    test_string(str, "[20,30,40,50]");
 
+    // Removing the last position element
     // Remoção do elemento da última posição
-    posicao = lista_removerElemento(l, 50);
-    lista_toString(l, str);
-    teste_string(str, "[20,30,40]");
-    teste_int(posicao, 3);
+    position = list_removeElement(l, 50);
+    list_toString(l, str);
+    test_string(str, "[20,30,40]");
+    test_int(position, 3);
     
     
-    // Remoção do elemento no meio
-    posicao = lista_removerElemento(l, 30);
-    lista_toString(l, str);
-    teste_int(posicao, 1);
-    teste_string(str, "[20,40]");
+    // Removing the middle element
+    // Remoção do element no meio
+    position = list_removeElement(l, 30);
+    list_toString(l, str);
+    test_int(position, 1);
+    test_string(str, "[20,40]");
     
 
+    // Removing the last position element
     // Remoção do elemento da última posição
-    posicao = lista_removerElemento(l, 40);
-    lista_toString(l, str);
-    teste_int(posicao, 1);
-    teste_string(str, "[20]");
+    position = list_removeElement(l, 40);
+    list_toString(l, str);
+    test_int(position, 1);
+    test_string(str, "[20]");
     
+    // Removing the last element
     // Remoção do último elemento
-    posicao = lista_removerElemento(l, 20);
-    lista_toString(l, str);
-    teste_int(posicao, 0);
-    teste_string(str, "[]");
+    position = list_removeElement(l, 20);
+    list_toString(l, str);
+    test_int(position, 0);
+    test_string(str, "[]");
 
-    // Remoção na lista vazia
-    posicao = lista_removerElemento(l, 40);
-    teste_int(posicao, -1);
+    // Removing into a empty list
+    // Remoção na list vazia
+    position = list_removeElement(l, 40);
+    test_int(position, -1);
 }
 
 
-int main(){
+int main() {
 
-    teste_anexar();
-    teste_inserir();
-    teste_removerPosicao();
-    teste_removerElemento();
+    test_attach();
+    test_insert();
+    test_removePosition();
+    test_removeElement();
 
     return 0;
 }
