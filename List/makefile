@@ -1,4 +1,8 @@
-encadeada:
-	gcc -c lista_encadeada.c
-	gcc main.c lista_encadeada.o -o main
+all:
+	gcc -c list.c
+	gcc main.c list.o -o main
 	./main
+
+clear:
+	rm list.o
+	rm main.exe
